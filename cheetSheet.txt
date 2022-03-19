@@ -1,0 +1,78 @@
+1)  Mongodb commands for Databases
+
+#View all Databases:- show dbs
+#Create a new or switch databases:- use dbName
+#View current database:- db
+#Delete database:- db.dropDatabase()
+
+
+
+2)  Mongodb commands for collections
+
+#view all collections:- show collections
+#create a new collection named 'comments':- db.createCollection('comments')
+#delete a collection named 'comments':- db.comments.drop()
+
+
+3)  Mongodb commands for Rows(Documents)
+
+#view all rows in a collection named ' comments':-db.comments.find()
+#view all rows in a collection (prettified):-db.comments.find().pretty()
+#insert one row in a collection named 'comments':-  db.comments.insert({
+
+                                                    'name':'ashutosh',
+                                                    'age': 20,
+                                                    'country':'India'
+
+                                                      })
+
+
+#insert multiple row in a collection named 'comments':- db.comments.insertMany([{
+
+                                                    'name':'ashutosh',
+                                                    'age': 20,
+                                                    'country':'India'
+                                                      },
+                                                      {
+
+                                                    'name':'rohan',
+                                                    'age': 19,
+                                                    'country':'India'
+
+                                                      },{
+
+                                                    'name':'john',
+                                                    'age': 21,
+                                                    'country':'USA'
+                                                      }])
+
+# Delete Row(all the rows with name john will be removed):-db.comments.remove({name:'john'})
+
+
+4)  Search in a Mongodb database:-
+
+#to search row with 'country= Indian' in the collection named 'comments':- db.comments.find({country:'India'})
+#to find the first row matching the object:- db.comments.findOne({country:'India'})
+
+#Limit the number of rows in output(only first two rows will be shown):- db.comments.find().limit(2)
+#count the number of rows in the output:- db.comments.find().count()
+#count the number of rows with 'country= India':-  db.comments.find({country: 'India'}).count()
+
+
+
+
+5)Sort the rows
+
+#sort the rows in accending order of their age :- db.comments.find().sort({age:1}).pretty()
+#sort the rows in decreasing order of their age :- db.comments.find().sort({age:-1}).pretty()
+
+
+6)Update a Row and Operators
+
+#update all the rows with 'age =20' with the given details :- db.comments.update({age:20},{ 'name':'ashutosh', 'age':21,'country':'India'})
+#insert if no match found:- db.comments.update({age:20},{ 'name':'ashutosh', 'age':21,'country':'India'},{upsert: true})
+#Increment operator(age of all the rows with name ashutosh will increment by 2):- db.comments.update({name:'ashutosh'}, {$inc:{age: 2}})
+#rename operator(for all the rows with name ashutosh their 'age' field will be now renamed as 'years'):-     db.comments.update({name:'ashutosh'}, {$rename:{age: 'years'}})   
+#less than(will show all the rows with age less than 20):- db.comments.find({age: {$lt:20}})
+#greater than(will show all the rows with age greater than 20):- db.comments.find({age: {$gt:20}})
+
